@@ -41,14 +41,18 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AgencyProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
+const App = () => {
+  // Get base path from import.meta.env.BASE_URL (set by Vite)
+  const basePath = import.meta.env.BASE_URL || '/';
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AgencyProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter basename={basePath}>
+            <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/icliniq" element={<ICliniqDetails />} />
           <Route path="/futurebee-ai" element={<FutureBeeAIDetails />} />
@@ -88,6 +92,7 @@ const App = () => (
     </TooltipProvider>
     </AgencyProvider>
   </QueryClientProvider>
-);
+  );
+};
 
 export default App;
